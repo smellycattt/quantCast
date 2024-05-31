@@ -22,14 +22,15 @@ This project is a command-line tool that processes a cookie log file to find the
    ```
 
 2. Run the command-line tool:
-```python most_active_cookie.py -f <cookie_log_file> -d <date>```
+    ```python most_active_cookie.py -f <cookie_log_file> -d <date>```
 for ex:
-```python most_active_cookie.py -f cookie_log.csv -d 2018-12-09```
+    ```python most_active_cookie.py -f cookie_log.csv -d 2018-12-09```
 
 3. Logging 
 You can set the logging level using the -l or --log parameter. Available options are DEBUG, INFO, WARNING, ERROR, and CRITICAL. The default logging level is INFO.
 
-Example: ``` python most_active_cookie.py -f cookie_log.csv -d 2018-12-09 -l DEBUG```
+Example:   
+    ``` python most_active_cookie.py -f cookie_log.csv -d 2018-12-09 -l DEBUG```
 
 4. Testing:
-```python -m unittest test_most_active_cookie.py```
+    ```python -m unittest test_most_active_cookie.py```
