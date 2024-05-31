@@ -29,20 +29,21 @@ def process_log_file(filename, date):
 
     try:
         with open(filename, 'r') as file:
-            next(file)  # Skip header row
-            for line in file:
-                cookie, timestamp = line.strip().split(',')
-                log_date = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S%z').date()
-                if log_date == target_date:
-                    cookie_counts[cookie] += 1
+            lines = file.readlines()
+        
+        for line in lines[1:]:  # Skip the header row
+            cookie, timestamp = line.strip().split(',')
+            log_date = datetime.strptime(timestamp, '%Y-%m-%dT%H:%M:%S%z').date()
+            if log_date == target_date:
+                cookie_counts[cookie] += 1
     except FileNotFoundError:
-        logging.error(f"File not found: {filename}")
+        logging.error("File not found: {}".format(filename))
         return []
     except ValueError as e:
-        logging.error(f"Value error: {e}")
+        logging.error("Value error: {}".format(e))
         return []
     except Exception as e:
-        logging.error(f"An error occurred: {e}")
+        logging.error("An error occurred: {}".format(e))
         return []
 
     max_count = max(cookie_counts.values(), default=0)
@@ -54,11 +55,11 @@ def main():
     args = parse_arguments()
     setup_logging(log_level=getattr(logging, args.log))
 
-    logging.info(f"Processing log file: {args.file} for date: {args.date}")
+    logging.info("Processing log file: {} for date: {}".format(args.file, args.date))
     most_active_cookies = process_log_file(args.file, args.date)
 
     if most_active_cookies:
-        logging.info(f"Most active cookies found: {most_active_cookies}")
+        logging.info("Most active cookies found: {}".format(most_active_cookies))
         for cookie in most_active_cookies:
             print(cookie)
     else:
